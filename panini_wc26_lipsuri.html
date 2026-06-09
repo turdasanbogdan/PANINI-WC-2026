@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panini WC26 — Lipsuri</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0d1117;
+    color: #e6edf3;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    letter-spacing: 3px;
+    color: #fff;
+    line-height: 1;
+  }
+  header h1 span { color: #e8c840; }
+  .subtitle {
+    font-size: 13px;
+    color: #8b949e;
+    margin-top: 6px;
+  }
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 16px;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: #e8c840;
+    line-height: 1;
+  }
+  .stat .lbl {
+    font-size: 11px;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .reset-btn {
+    display: block;
+    margin: 0 auto 28px;
+    background: transparent;
+    border: 1px solid #30363d;
+    color: #8b949e;
+    padding: 6px 18px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: border-color .2s, color .2s;
+  }
+  .reset-btn:hover { border-color: #e8c840; color: #e8c840; }
+
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .group-block {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .group-header {
+    background: #1c2128;
+    padding: 8px 14px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #8b949e;
+    text-transform: uppercase;
+    border-bottom: 1px solid #21262d;
+  }
+  .group-header span { color: #e8c840; margin-right: 4px; }
+
+  .team-row {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 14px;
+    border-bottom: 1px solid #21262d;
+    gap: 10px;
+  }
+  .team-row:last-child { border-bottom: none; }
+
+  .team-info {
+    min-width: 80px;
+  }
+  .team-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #e6edf3;
+    white-space: nowrap;
+  }
+  .team-abbrev {
+    font-size: 10px;
+    color: #8b949e;
+    margin-top: 1px;
+  }
+  .team-count {
+    font-size: 10px;
+    color: #e8c840;
+    margin-top: 2px;
+  }
+
+  .stickers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    flex: 1;
+    align-content: flex-start;
+  }
+
+  .sticker {
+    background: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #e6edf3;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, color .15s, transform .1s;
+    user-select: none;
+  }
+  .sticker:hover {
+    background: #2d333b;
+    border-color: #e8c840;
+    color: #e8c840;
+    transform: scale(1.1);
+  }
+  .sticker.done {
+    background: #0d2a1a;
+    border-color: #238636;
+    color: #3fb950;
+    text-decoration: line-through;
+    opacity: 0.5;
+    cursor: default;
+    transform: none;
+  }
+  .sticker.done:hover {
+    background: #0d2a1a;
+    border-color: #238636;
+    color: #3fb950;
+    transform: none;
+  }
+
+  .empty-row {
+    padding: 10px 14px;
+    font-size: 11px;
+    color: #3fb950;
+    font-style: italic;
+  }
+
+  @media (max-width: 480px) {
+    .groups { grid-template-columns: 1fr; }
+    .sticker { width: 28px; height: 28px; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Panini <span>WC26</span> Lipsuri</h1>
+  <p class="subtitle">Click pe un număr când l-ai găsit · se salvează automat</p>
+  <div class="stats">
+    <div class="stat"><div class="num" id="totalLeft">—</div><div class="lbl">Rămase</div></div>
+    <div class="stat"><div class="num" id="totalFound">—</div><div class="lbl">Găsite</div></div>
+    <div class="stat"><div class="num" id="totalAll">—</div><div class="lbl">Total</div></div>
+  </div>
+</header>
+
+<button class="reset-btn" onclick="resetAll()">↺ Resetează tot</button>
+
+<div class="groups" id="groups"></div>
+
+<script>
+const data = {
+  "A": [
+    { name: "Mexico",       abbrev: "MEX", missing: [1,13,14] },
+    { name: "South Africa", abbrev: "RSA", missing: [2,19] },
+    { name: "South Korea",  abbrev: "KOR", missing: [15] },
+    { name: "Czechia",      abbrev: "CZE", missing: [3,7,12,13,17] },
+  ],
+  "B": [
+    { name: "Canada",            abbrev: "CAN", missing: [1,4,8,9,10] },
+    { name: "Bosnia & Herz.",    abbrev: "BIH", missing: [3,9,14,18,20] },
+    { name: "Qatar",             abbrev: "QAT", missing: [2,6,14,18] },
+    { name: "Switzerland",       abbrev: "SUI", missing: [2,4,9,14] },
+  ],
+  "C": [
+    { name: "Brazil",   abbrev: "BRA", missing: [4,10,11,14,16,18] },
+    { name: "Morocco",  abbrev: "MAR", missing: [5,6,12,14] },
+    { name: "Haiti",    abbrev: "HAI", missing: [4,8,10,19] },
+    { name: "Scotland", abbrev: "SCO", missing: [5,7,8,11,12,15] },
+  ],
+  "D": [
+    { name: "USA",       abbrev: "USA", missing: [6,8,19] },
+    { name: "Paraguay",  abbrev: "PAR", missing: [5,9,10,16] },
+    { name: "Australia", abbrev: "AUS", missing: [1,17,18,20] },
+    { name: "Turkey",    abbrev: "TUR", missing: [2,4,19] },
+  ],
+  "E": [
+    { name: "Germany",       abbrev: "GER", missing: [5,12,20] },
+    { name: "Curaçao",       abbrev: "CUW", missing: [2,3,5,6,11] },
+    { name: "Côte d'Ivoire", abbrev: "CIV", missing: [3,4,6,8,15] },
+    { name: "Ecuador",       abbrev: "ECU", missing: [2,4,5,11,12,14,15] },
+  ],
+  "F": [
+    { name: "Netherlands", abbrev: "NED", missing: [3,10,19] },
+    { name: "Japan",       abbrev: "JPN", missing: [8,9] },
+    { name: "Sweden",      abbrev: "SWE", missing: [2,4,10,13] },
+    { name: "Tunisia",     abbrev: "TUN", missing: [5,9,14] },
+  ],
+  "G": [
+    { name: "Belgium",     abbrev: "BEL", missing: [2,4,13,16,18,19] },
+    { name: "Egypt",       abbrev: "EGY", missing: [7,13,17] },
+    { name: "Iran",        abbrev: "IRN", missing: [10,11,12,13] },
+    { name: "New Zealand", abbrev: "NZL", missing: [1,9,14] },
+  ],
+  "H": [
+    { name: "Spain",        abbrev: "ESP", missing: [1,5,14] },
+    { name: "Cape Verde",   abbrev: "CPV", missing: [5,13,15] },
+    { name: "Saudi Arabia", abbrev: "KSA", missing: [1,2] },
+    { name: "Uruguay",      abbrev: "URU", missing: [7,17] },
+  ],
+  "I": [
+    { name: "France",  abbrev: "FRA", missing: [7,18,20] },
+    { name: "Senegal", abbrev: "SEN", missing: [4,6,14] },
+    { name: "Iraq",    abbrev: "IRQ", missing: [17,19] },
+    { name: "Norway",  abbrev: "NOR", missing: [4,8,18] },
+  ],
+  "J": [
+    { name: "Argentina", abbrev: "ARG", missing: [7,8,10,14,15,16] },
+    { name: "Algeria",   abbrev: "ALG", missing: [9,11] },
+    { name: "Austria",   abbrev: "AUT", missing: [3,4,8,19] },
+    { name: "Jordan",    abbrev: "JOR", missing: [9,10,11,12,15] },
+  ],
+  "K": [
+    { name: "Portugal",   abbrev: "POR", missing: [3,7,15,16] },
+    { name: "DR Congo",   abbrev: "COD", missing: [1,5,18,19] },
+    { name: "Uzbekistan", abbrev: "UZB", missing: [1,15,18,19] },
+    { name: "Colombia",   abbrev: "COL", missing: [1,4,9,13,18] },
+  ],
+  "L": [
+    { name: "England", abbrev: "ENG", missing: [3,6,11,12,13,18] },
+    { name: "Croatia", abbrev: "CRO", missing: [12,16,17] },
+    { name: "Ghana",   abbrev: "GHA", missing: [2,3,4,7,16] },
+    { name: "Panama",  abbrev: "PAN", missing: [12,17,18] },
+  ],
+  "—": [
+    { name: "FIFA WC History", abbrev: "FWC", missing: [9,12,18] },
+  ],
+};
+
+const STORAGE_KEY = "panini_wc26_found";
+
+function loadFound() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
+  catch { return {}; }
+}
+function saveFound(found) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(found));
+}
+
+function key(abbrev, num) { return `${abbrev}_${num}`; }
+
+function updateStats(found) {
+  let total = 0, done = 0;
+  for (const teams of Object.values(data))
+    for (const t of teams) {
+      total += t.missing.length;
+      done += t.missing.filter(n => found[key(t.abbrev, n)]).length;
+    }
+  document.getElementById("totalAll").textContent = total;
+  document.getElementById("totalFound").textContent = done;
+  document.getElementById("totalLeft").textContent = total - done;
+}
+
+function updateTeamCount(abbrev, found) {
+  const el = document.querySelector(`.team-count[data-abbrev="${abbrev}"]`);
+  if (!el) return;
+  const team = Object.values(data).flat().find(t => t.abbrev === abbrev);
+  const left = team.missing.filter(n => !found[key(abbrev, n)]).length;
+  el.textContent = left === 0 ? "✓ complet" : `${left} rămase`;
+}
+
+function render() {
+  const found = loadFound();
+  const container = document.getElementById("groups");
+  container.innerHTML = "";
+
+  for (const [grp, teams] of Object.entries(data)) {
+    const block = document.createElement("div");
+    block.className = "group-block";
+    block.innerHTML = `<div class="group-header"><span>Grupa ${grp}</span></div>`;
+
+    for (const team of teams) {
+      if (team.missing.length === 0) {
+        block.innerHTML += `<div class="empty-row">${team.name} — nicio lipsă</div>`;
+        continue;
+      }
+      const left = team.missing.filter(n => !found[key(team.abbrev, n)]).length;
+      const row = document.createElement("div");
+      row.className = "team-row";
+      row.innerHTML = `
+        <div class="team-info">
+          <div class="team-name">${team.name}</div>
+          <div class="team-abbrev">${team.abbrev}</div>
+          <div class="team-count" data-abbrev="${team.abbrev}">${left === 0 ? "✓ complet" : left + " rămase"}</div>
+        </div>
+        <div class="stickers" id="s_${team.abbrev}"></div>`;
+      block.appendChild(row);
+
+      const stickersDiv = row.querySelector(`#s_${team.abbrev}`);
+      for (const num of team.missing) {
+        const btn = document.createElement("div");
+        btn.className = "sticker" + (found[key(team.abbrev, num)] ? " done" : "");
+        btn.textContent = num;
+        btn.title = found[key(team.abbrev, num)] ? "Click pentru a anula" : "Click când l-ai găsit";
+        btn.addEventListener("click", () => {
+          const f = loadFound();
+          const k = key(team.abbrev, num);
+          if (f[k]) delete f[k]; else f[k] = 1;
+          saveFound(f);
+          btn.classList.toggle("done", !!f[k]);
+          btn.title = f[k] ? "Click pentru a anula" : "Click când l-ai găsit";
+          updateTeamCount(team.abbrev, f);
+          updateStats(f);
+        });
+        stickersDiv.appendChild(btn);
+      }
+    }
+    container.appendChild(block);
+  }
+  updateStats(found);
+}
+
+function resetAll() {
+  if (confirm("Resetezi tot progresul?")) {
+    localStorage.removeItem(STORAGE_KEY);
+    render();
+  }
+}
+
+render();
+</script>
+</body>
+</html>

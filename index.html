@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panini WC26 — Colecție</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0d1117;
+    color: #e6edf3;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 10vw, 5rem);
+    letter-spacing: 4px;
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .logo span { color: #e8c840; }
+
+  .tagline {
+    font-size: 13px;
+    color: #8b949e;
+    text-align: center;
+    margin-bottom: 48px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .card {
+    flex: 1;
+    min-width: 240px;
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 14px;
+    padding: 28px 24px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+    cursor: pointer;
+  }
+  .card:hover {
+    border-color: #e8c840;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(232,200,64,.12);
+  }
+
+  .card-icon { font-size: 2.2rem; }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: #fff;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: #8b949e;
+    line-height: 1.5;
+  }
+
+  .card-arrow {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #e8c840;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .footer {
+    margin-top: 48px;
+    font-size: 11px;
+    color: #30363d;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="logo">Panini <span>WC26</span></div>
+<p class="tagline">Tracker colecție · FIFA World Cup 2026</p>
+
+<div class="cards">
+  <a class="card" href="lipsuri.html">
+    <div class="card-icon">🔍</div>
+    <div class="card-title">Lipsuri</div>
+    <div class="card-desc">Stickere care îți lipsesc. Dă click pe un număr când l-ai găsit — se salvează automat.</div>
+    <div class="card-arrow">Deschide →</div>
+  </a>
+
+  <a class="card" href="duble.html">
+    <div class="card-icon">♻️</div>
+    <div class="card-title">Duble</div>
+    <div class="card-desc">Stickere în surplus. Ține apăsat ca să ștergi, selectează și copiază lista pentru schimb.</div>
+    <div class="card-arrow">Deschide →</div>
+  </a>
+</div>
+
+<div class="footer">Datele se salvează local în browser · niciun server</div>
+
+</body>
+</html>
