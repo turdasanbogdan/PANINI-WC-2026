@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panini WC26 — Duble</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #1c2128;
+    --border: #21262d;
+    --border2: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --yellow: #e8c840;
+    --green: #3fb950;
+    --green-bg: #0d2a1a;
+    --green-border: #238636;
+    --blue: #58a6ff;
+    --blue-bg: #0d2149;
+    --blue-border: #1f6feb;
+    --red: #f85149;
+    --red-bg: #2d1010;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 80px;
+  }
+
+  header { text-align: center; margin-bottom: 28px; }
+  header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    letter-spacing: 3px; color: #fff; line-height: 1;
+  }
+  header h1 span { color: var(--yellow); }
+  .subtitle { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+  .stats {
+    display: flex; justify-content: center; gap: 32px; margin-top: 14px;
+  }
+  .stat .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem; color: var(--yellow); line-height: 1; text-align: center;
+  }
+  .stat .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; text-align: center; }
+
+  /* MODE BAR */
+  .mode-bar {
+    display: flex; justify-content: center; gap: 10px;
+    margin: 0 auto 24px; max-width: 600px; flex-wrap: wrap;
+  }
+  .mode-btn {
+    padding: 8px 20px; border-radius: 20px; border: 1px solid var(--border2);
+    background: var(--bg3); color: var(--muted); font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    transition: all .2s;
+  }
+  .mode-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+  .mode-btn.active { background: var(--yellow); border-color: var(--yellow); color: #000; font-weight: 600; }
+  .mode-btn.share-btn {
+    background: var(--green-bg); border-color: var(--green-border); color: var(--green);
+  }
+  .mode-btn.share-btn:hover { background: var(--green-border); color: #fff; }
+  .mode-btn.share-btn:disabled { opacity: 0.4; cursor: default; }
+
+  .mode-hint {
+    text-align: center; font-size: 12px; color: var(--muted);
+    margin-bottom: 18px; min-height: 18px;
+    transition: opacity .3s;
+  }
+
+  /* GROUPS GRID */
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px; max-width: 1200px; margin: 0 auto;
+  }
+
+  .group-block {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden;
+  }
+  .group-header {
+    background: var(--bg3); padding: 8px 14px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 13px;
+    letter-spacing: 2px; color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .group-header span { color: var(--yellow); margin-right: 4px; }
+
+  .team-row {
+    display: flex; align-items: flex-start;
+    padding: 10px 14px; border-bottom: 1px solid var(--border);
+    gap: 10px;
+  }
+  .team-row:last-child { border-bottom: none; }
+
+  .team-info { min-width: 80px; }
+  .team-name { font-size: 12px; font-weight: 600; color: var(--text); }
+  .team-abbrev { font-size: 10px; color: var(--muted); margin-top: 1px; }
+  .team-count { font-size: 10px; color: var(--yellow); margin-top: 2px; }
+
+  .add-btn {
+    width: 28px; height: 28px; border-radius: 5px;
+    border: 1px dashed var(--border2); background: transparent;
+    color: var(--muted); font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s; flex-shrink: 0;
+  }
+  .add-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+
+  .stickers-wrap { display: flex; flex-wrap: wrap; gap: 5px; flex: 1; align-content: flex-start; }
+
+  /* STICKER */
+  .sticker {
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 5px; width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; color: var(--text);
+    cursor: pointer; user-select: none; position: relative;
+    transition: background .15s, border-color .15s, color .15s, transform .1s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sticker:hover { background: #2d333b; border-color: var(--yellow); color: var(--yellow); transform: scale(1.1); }
+
+  /* hold progress ring */
+  .sticker::after {
+    content: '';
+    position: absolute; inset: -2px; border-radius: 7px;
+    border: 2px solid transparent;
+    transition: none;
+  }
+  .sticker.holding::after {
+    border-color: var(--red);
+    animation: holdRing .7s linear forwards;
+  }
+  @keyframes holdRing {
+    from { clip-path: inset(0 100% 0 0); }
+    to   { clip-path: inset(0 0% 0 0); }
+  }
+
+  /* selected (share mode) */
+  .sticker.selected {
+    background: var(--blue-bg); border-color: var(--blue-border); color: var(--blue);
+    transform: scale(1.08);
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: var(--green-border); color: #fff;
+    padding: 10px 22px; border-radius: 20px; font-size: 13px; font-weight: 500;
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s;
+    z-index: 999;
+  }
+  .toast.show { opacity: 1; }
+
+  /* ADD MODAL */
+  .overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,.7); z-index: 100;
+    align-items: center; justify-content: center;
+  }
+  .overlay.open { display: flex; }
+  .modal {
+    background: var(--bg2); border: 1px solid var(--border2);
+    border-radius: 12px; padding: 24px; width: 300px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .modal h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px; }
+  .modal h3 span { color: var(--yellow); }
+  .modal input {
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 6px; color: var(--text); padding: 8px 12px;
+    font-family: 'Inter', sans-serif; font-size: 14px; width: 100%;
+    outline: none;
+  }
+  .modal input:focus { border-color: var(--yellow); }
+  .modal .hint { font-size: 11px; color: var(--muted); }
+  .modal-actions { display: flex; gap: 10px; }
+  .modal-actions button {
+    flex: 1; padding: 9px; border-radius: 6px; border: none;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;
+  }
+  .btn-confirm { background: var(--yellow); color: #000; }
+  .btn-cancel { background: var(--bg3); color: var(--muted); border: 1px solid var(--border2) !important; }
+
+  @media (max-width: 480px) {
+    .groups { grid-template-columns: 1fr; }
+    .sticker { width: 28px; height: 28px; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Panini <span>WC26</span> Duble</h1>
+  <p class="subtitle">Ține apăsat ca să ștergi · Selectează și copiază pentru schimb</p>
+  <div class="stats">
+    <div class="stat"><div class="num" id="statTotal">—</div><div class="lbl">Total duble</div></div>
+    <div class="stat"><div class="num" id="statSelected">0</div><div class="lbl">Selectate</div></div>
+  </div>
+</header>
+
+<div class="mode-bar">
+  <button class="mode-btn active" id="btnNormal" onclick="setMode('normal')">✏️ Editare</button>
+  <button class="mode-btn" id="btnShare" onclick="setMode('share')">👆 Selectare</button>
+  <button class="mode-btn share-btn" id="btnCopy" onclick="copySelected()" disabled>📋 Copiază lista</button>
+</div>
+<div class="mode-hint" id="modeHint">Ține apăsat un sticker ca să îl ștergi. Apasă + ca să adaugi.</div>
+
+<div class="groups" id="groups"></div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h3>Adaugă — <span id="modalTeamName"></span></h3>
+    <input type="text" id="modalInput" placeholder="ex: 3, 7, 7, 12" />
+    <p class="hint">Separă numerele cu virgulă. Dacă ai același de mai multe ori, pune-l de mai multe ori.</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Anulează</button>
+      <button class="btn-confirm" onclick="confirmAdd()">Adaugă</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = "panini_wc26_duble_v2";
+
+const groups = {
+  "A": [
+    { name:"Mexico",       abbrev:"MEX", doubles:[19,7,7,7] },
+    { name:"South Africa", abbrev:"RSA", doubles:[9,5,1,1,15,9] },
+    { name:"South Korea",  abbrev:"KOR", doubles:[20,17,5,4] },
+    { name:"Czechia",      abbrev:"CZE", doubles:[18,10] },
+  ],
+  "B": [
+    { name:"Canada",            abbrev:"CAN", doubles:[14] },
+    { name:"Bosnia & Herz.",    abbrev:"BIH", doubles:[19,16,10,10,2,1] },
+    { name:"Qatar",             abbrev:"QAT", doubles:[9,8,8] },
+    { name:"Switzerland",       abbrev:"SUI", doubles:[20,13,8,5,1] },
+  ],
+  "C": [
+    { name:"Brazil",   abbrev:"BRA", doubles:[19,15] },
+    { name:"Morocco",  abbrev:"MAR", doubles:[18,15,13,11] },
+    { name:"Haiti",    abbrev:"HAI", doubles:[2] },
+    { name:"Scotland", abbrev:"SCO", doubles:[1,1] },
+  ],
+  "D": [
+    { name:"USA",      abbrev:"USA", doubles:[20,13,12,4,3] },
+    { name:"Paraguay", abbrev:"PAR", doubles:[19,17,17,13,13,13,12,12,10,3] },
+    { name:"Australia",abbrev:"AUS", doubles:[19,16,16,15,13,11,9,4,4] },
+    { name:"Turkey",   abbrev:"TUR", doubles:[15,14,12,7,3] },
+  ],
+  "E": [
+    { name:"Germany",      abbrev:"GER", doubles:[14,14,9,1] },
+    { name:"Curaçao",      abbrev:"CUW", doubles:[19,18,17,14] },
+    { name:"Côte d'Ivoire",abbrev:"CIV", doubles:[20,12,9,1] },
+    { name:"Ecuador",      abbrev:"ECU", doubles:[20,20,17,16,16,8,2] },
+  ],
+  "F": [
+    { name:"Netherlands",abbrev:"NED", doubles:[17,16,7,4,2] },
+    { name:"Japan",      abbrev:"JPN", doubles:[20,16,13,13,12,10,10,5,5,3,1] },
+    { name:"Sweden",     abbrev:"SWE", doubles:[19,11,3] },
+    { name:"Tunisia",    abbrev:"TUN", doubles:[20,20,16,16,12,11,11,7,6,3] },
+  ],
+  "G": [
+    { name:"Belgium",    abbrev:"BEL", doubles:[15,12,1] },
+    { name:"Egypt",      abbrev:"EGY", doubles:[15,6,3] },
+    { name:"Iran",       abbrev:"IRN", doubles:[6,6,5,3,1] },
+    { name:"New Zealand",abbrev:"NZL", doubles:[13,13,13,12,12,6,5,3,3] },
+  ],
+  "H": [
+    { name:"Spain",        abbrev:"ESP", doubles:[13,9,7,4,2,2] },
+    { name:"Cape Verde",   abbrev:"CPV", doubles:[20,16,12] },
+    { name:"Saudi Arabia", abbrev:"KSA", doubles:[14,14,7] },
+    { name:"Uruguay",      abbrev:"URU", doubles:[15,3,2] },
+  ],
+  "I": [
+    { name:"France",  abbrev:"FRA", doubles:[17] },
+    { name:"Senegal", abbrev:"SEN", doubles:[16,16,9,7,1] },
+    { name:"Iraq",    abbrev:"IRQ", doubles:[20,8] },
+    { name:"Norway",  abbrev:"NOR", doubles:[16,12,7] },
+  ],
+  "J": [
+    { name:"Argentina",abbrev:"ARG", doubles:[19,19,1] },
+    { name:"Algeria",  abbrev:"ALG", doubles:[13,5,4,3,3] },
+    { name:"Austria",  abbrev:"AUT", doubles:[14,13,11,1,1,1] },
+    { name:"Jordan",   abbrev:"JOR", doubles:[20,13,3,3] },
+  ],
+  "K": [
+    { name:"Portugal",   abbrev:"POR", doubles:[19] },
+    { name:"DR Congo",   abbrev:"COD", doubles:[14,10,8,6,2] },
+    { name:"Uzbekistan", abbrev:"UZB", doubles:[20,12,12,11,10,10,5,2,2] },
+    { name:"Colombia",   abbrev:"COL", doubles:[15,15] },
+  ],
+  "L": [
+    { name:"England",abbrev:"ENG", doubles:[2,1] },
+    { name:"Croatia",abbrev:"CRO", doubles:[19,14,11,8] },
+    { name:"Ghana",  abbrev:"GHA", doubles:[11] },
+    { name:"Panama", abbrev:"PAN", doubles:[15,13,7,3,2,2] },
+  ],
+  "—": [
+    { name:"FIFA WC History",abbrev:"FWC", doubles:[16,13,4,1] },
+  ],
+};
+
+// State
+let mode = 'normal';
+let stateDoubles = {};   // abbrev -> number[]
+let selected = {};       // abbrev -> Set of indices
+let currentAddAbbrev = null;
+let holdTimer = null;
+
+// Init: load from storage or use defaults
+function initState() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (saved) { stateDoubles = saved; return; }
+  } catch {}
+  // defaults
+  for (const teams of Object.values(groups))
+    for (const t of teams)
+      stateDoubles[t.abbrev] = [...t.doubles];
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(stateDoubles));
+}
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('btnNormal').classList.toggle('active', m === 'normal');
+  document.getElementById('btnShare').classList.toggle('active', m === 'share');
+  const hints = {
+    normal: 'Ține apăsat un sticker ca să îl ștergi. Apasă + ca să adaugi.',
+    share: 'Dă click pe stickere ca să le selectezi. Apoi copiază lista pentru schimb.'
+  };
+  document.getElementById('modeHint').textContent = hints[m];
+  if (m === 'normal') {
+    selected = {};
+    updateShareBtn();
+  }
+  render();
+}
+
+function updateShareBtn() {
+  const total = Object.values(selected).reduce((s,set) => s + set.size, 0);
+  document.getElementById('statSelected').textContent = total;
+  document.getElementById('btnCopy').disabled = total === 0;
+}
+
+function updateTotalStat() {
+  const total = Object.values(stateDoubles).reduce((s,arr) => s + arr.length, 0);
+  document.getElementById('statTotal').textContent = total;
+}
+
+// RENDER
+function render() {
+  const container = document.getElementById('groups');
+  container.innerHTML = '';
+  updateTotalStat();
+
+  for (const [grp, teams] of Object.entries(groups)) {
+    const block = document.createElement('div');
+    block.className = 'group-block';
+    block.innerHTML = `<div class="group-header"><span>Grupa ${grp}</span></div>`;
+
+    for (const team of teams) {
+      const nums = stateDoubles[team.abbrev] || [];
+      const row = document.createElement('div');
+      row.className = 'team-row';
+
+      const info = document.createElement('div');
+      info.className = 'team-info';
+      info.innerHTML = `
+        <div class="team-name">${team.name}</div>
+        <div class="team-abbrev">${team.abbrev}</div>
+        <div class="team-count">${nums.length} duble</div>`;
+      row.appendChild(info);
+
+      const wrap = document.createElement('div');
+      wrap.className = 'stickers-wrap';
+
+      nums.forEach((num, idx) => {
+        const el = document.createElement('div');
+        el.className = 'sticker';
+        el.textContent = num;
+        if (mode === 'share' && selected[team.abbrev]?.has(idx))
+          el.classList.add('selected');
+
+        if (mode === 'normal') {
+          el.addEventListener('pointerdown', () => startHold(el, team.abbrev, idx));
+          el.addEventListener('pointerup',   cancelHold);
+          el.addEventListener('pointerleave',cancelHold);
+          el.addEventListener('contextmenu', e => { e.preventDefault(); deleteSticker(team.abbrev, idx); });
+        } else {
+          el.addEventListener('click', () => toggleSelect(team.abbrev, idx));
+        }
+        wrap.appendChild(el);
+      });
+
+      // add button (only in normal mode)
+      if (mode === 'normal') {
+        const addBtn = document.createElement('button');
+        addBtn.className = 'add-btn';
+        addBtn.textContent = '+';
+        addBtn.title = 'Adaugă dubluri';
+        addBtn.addEventListener('click', () => openModal(team.abbrev, team.name));
+        wrap.appendChild(addBtn);
+      }
+
+      row.appendChild(wrap);
+      block.appendChild(row);
+    }
+    container.appendChild(block);
+  }
+}
+
+// HOLD TO DELETE
+function startHold(el, abbrev, idx) {
+  el.classList.add('holding');
+  holdTimer = setTimeout(() => {
+    el.classList.remove('holding');
+    deleteSticker(abbrev, idx);
+  }, 700);
+}
+function cancelHold() {
+  clearTimeout(holdTimer);
+  document.querySelectorAll('.sticker.holding').forEach(e => e.classList.remove('holding'));
+}
+function deleteSticker(abbrev, idx) {
+  stateDoubles[abbrev].splice(idx, 1);
+  saveState();
+  render();
+  showToast('Sticker șters');
+}
+
+// SELECT MODE
+function toggleSelect(abbrev, idx) {
+  if (!selected[abbrev]) selected[abbrev] = new Set();
+  if (selected[abbrev].has(idx)) selected[abbrev].delete(idx);
+  else selected[abbrev].add(idx);
+  updateShareBtn();
+  render();
+}
+
+function copySelected() {
+  const lines = [];
+  for (const [grp, teams] of Object.entries(groups)) {
+    for (const team of teams) {
+      const set = selected[team.abbrev];
+      if (!set || set.size === 0) continue;
+      const nums = [...set].map(i => stateDoubles[team.abbrev][i]).sort((a,b)=>a-b);
+      lines.push(`${team.abbrev}: ${nums.join(', ')}`);
+    }
+  }
+  if (lines.length === 0) return;
+  const text = `Panini WC26 – duble disponibile:\n${lines.join('\n')}`;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('✓ Copiat în clipboard!');
+    selected = {};
+    updateShareBtn();
+    render();
+  });
+}
+
+// ADD MODAL
+function openModal(abbrev, name) {
+  currentAddAbbrev = abbrev;
+  document.getElementById('modalTeamName').textContent = name;
+  document.getElementById('modalInput').value = '';
+  document.getElementById('overlay').classList.add('open');
+  setTimeout(() => document.getElementById('modalInput').focus(), 100);
+}
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+  currentAddAbbrev = null;
+}
+function confirmAdd() {
+  const val = document.getElementById('modalInput').value;
+  const nums = val.split(/[,\s]+/).map(s => parseInt(s.trim())).filter(n => !isNaN(n) && n >= 1 && n <= 20);
+  if (nums.length === 0) { closeModal(); return; }
+  if (!stateDoubles[currentAddAbbrev]) stateDoubles[currentAddAbbrev] = [];
+  stateDoubles[currentAddAbbrev].push(...nums);
+  stateDoubles[currentAddAbbrev].sort((a,b) => a-b);
+  saveState();
+  closeModal();
+  render();
+  showToast(`+${nums.length} sticker${nums.length>1?'e':''} adăugate`);
+}
+document.getElementById('modalInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') confirmAdd();
+  if (e.key === 'Escape') closeModal();
+});
+document.getElementById('overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('overlay')) closeModal();
+});
+
+// TOAST
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+initState();
+render();
+</script>
+</body>
+</html>
