@@ -6,178 +6,105 @@
 <title>Panini WC26 — Lipsuri</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap');
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: #0d1117;
-    color: #e6edf3;
+    background: #0d1117; color: #e6edf3;
     font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-    padding: 24px 16px 60px;
+    min-height: 100vh; padding: 24px 16px 60px;
   }
 
-  header {
-    text-align: center;
-    margin-bottom: 32px;
-  }
+  header { text-align: center; margin-bottom: 32px; }
   header h1 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(2rem, 6vw, 3.5rem);
-    letter-spacing: 3px;
-    color: #fff;
-    line-height: 1;
+    letter-spacing: 3px; color: #fff; line-height: 1;
   }
   header h1 span { color: #e8c840; }
-  .subtitle {
-    font-size: 13px;
-    color: #8b949e;
-    margin-top: 6px;
-  }
-  .stats {
-    display: flex;
-    justify-content: center;
-    gap: 32px;
-    margin-top: 16px;
-  }
-  .stat {
-    text-align: center;
-  }
+  .subtitle { font-size: 13px; color: #8b949e; margin-top: 6px; }
+
+  .stats { display: flex; justify-content: center; gap: 32px; margin-top: 16px; }
   .stat .num {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    color: #e8c840;
-    line-height: 1;
+    font-size: 2rem; color: #e8c840; line-height: 1; text-align: center;
   }
-  .stat .lbl {
-    font-size: 11px;
-    color: #8b949e;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .reset-btn {
-    display: block;
-    margin: 0 auto 28px;
-    background: transparent;
-    border: 1px solid #30363d;
-    color: #8b949e;
-    padding: 6px 18px;
-    border-radius: 6px;
-    font-size: 12px;
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    transition: border-color .2s, color .2s;
-  }
-  .reset-btn:hover { border-color: #e8c840; color: #e8c840; }
+  .stat .lbl { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
 
   .groups {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    gap: 20px; max-width: 1200px; margin: 0 auto;
   }
 
   .group-block {
-    background: #161b22;
-    border: 1px solid #21262d;
-    border-radius: 10px;
-    overflow: hidden;
+    background: #161b22; border: 1px solid #21262d;
+    border-radius: 10px; overflow: hidden;
   }
   .group-header {
-    background: #1c2128;
-    padding: 8px 14px;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 13px;
-    letter-spacing: 2px;
-    color: #8b949e;
-    text-transform: uppercase;
+    background: #1c2128; padding: 8px 14px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 13px;
+    letter-spacing: 2px; color: #8b949e;
     border-bottom: 1px solid #21262d;
   }
   .group-header span { color: #e8c840; margin-right: 4px; }
 
   .team-row {
-    display: flex;
-    align-items: flex-start;
-    padding: 10px 14px;
-    border-bottom: 1px solid #21262d;
-    gap: 10px;
+    display: flex; align-items: flex-start;
+    padding: 10px 14px; border-bottom: 1px solid #21262d; gap: 10px;
   }
   .team-row:last-child { border-bottom: none; }
 
-  .team-info {
-    min-width: 80px;
-  }
-  .team-name {
-    font-size: 12px;
-    font-weight: 600;
-    color: #e6edf3;
-    white-space: nowrap;
-  }
-  .team-abbrev {
-    font-size: 10px;
-    color: #8b949e;
-    margin-top: 1px;
-  }
-  .team-count {
-    font-size: 10px;
-    color: #e8c840;
-    margin-top: 2px;
-  }
+  .team-info { min-width: 80px; }
+  .team-name { font-size: 12px; font-weight: 600; color: #e6edf3; }
+  .team-abbrev { font-size: 10px; color: #8b949e; margin-top: 1px; }
+  .team-count { font-size: 10px; color: #e8c840; margin-top: 2px; }
 
-  .stickers {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    flex: 1;
-    align-content: flex-start;
-  }
+  .stickers { display: flex; flex-wrap: wrap; gap: 5px; flex: 1; align-content: flex-start; }
 
   .sticker {
-    background: #21262d;
-    border: 1px solid #30363d;
-    border-radius: 5px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 600;
-    color: #e6edf3;
-    cursor: pointer;
-    transition: background .15s, border-color .15s, color .15s, transform .1s;
-    user-select: none;
+    background: #21262d; border: 1px solid #30363d;
+    border-radius: 5px; width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; color: #e6edf3;
+    cursor: pointer; user-select: none; position: relative;
+    transition: background .15s, border-color .15s, transform .1s;
+    -webkit-tap-highlight-color: transparent;
   }
-  .sticker:hover {
-    background: #2d333b;
-    border-color: #e8c840;
-    color: #e8c840;
-    transform: scale(1.1);
+  .sticker:hover { background: #2d333b; border-color: #8b949e; }
+
+  /* hold ring */
+  .sticker::after {
+    content: '';
+    position: absolute; inset: -2px; border-radius: 7px;
+    border: 2px solid transparent;
   }
-  .sticker.done {
-    background: #0d2a1a;
-    border-color: #238636;
-    color: #3fb950;
-    text-decoration: line-through;
-    opacity: 0.5;
-    cursor: default;
-    transform: none;
+  .sticker.holding::after {
+    border-color: #f85149;
+    animation: holdRing .7s linear forwards;
   }
-  .sticker.done:hover {
-    background: #0d2a1a;
-    border-color: #238636;
-    color: #3fb950;
-    transform: none;
+  @keyframes holdRing {
+    from { clip-path: inset(0 100% 0 0); }
+    to   { clip-path: inset(0 0% 0 0); }
   }
 
-  .empty-row {
-    padding: 10px 14px;
-    font-size: 11px;
-    color: #3fb950;
-    font-style: italic;
+  .sticker.deleting {
+    animation: popOut .2s ease forwards;
   }
+  @keyframes popOut {
+    0%   { transform: scale(1); opacity: 1; }
+    50%  { transform: scale(1.3); opacity: 0.5; }
+    100% { transform: scale(0); opacity: 0; }
+  }
+
+  .empty-row { padding: 10px 14px; font-size: 11px; color: #3fb950; font-style: italic; }
+
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: #238636; color: #fff;
+    padding: 10px 22px; border-radius: 20px; font-size: 13px; font-weight: 500;
+    opacity: 0; pointer-events: none; transition: opacity .3s; z-index: 999;
+  }
+  .toast.show { opacity: 1; }
 
   @media (max-width: 480px) {
     .groups { grid-template-columns: 1fr; }
@@ -189,187 +116,215 @@
 
 <header>
   <h1>Panini <span>WC26</span> Lipsuri</h1>
-  <p class="subtitle">Click pe un număr când l-ai găsit · se salvează automat</p>
+  <p class="subtitle">Ține apăsat ca să ștergi un sticker găsit · se salvează automat</p>
   <div class="stats">
-    <div class="stat"><div class="num" id="totalLeft">—</div><div class="lbl">Rămase</div></div>
-    <div class="stat"><div class="num" id="totalFound">—</div><div class="lbl">Găsite</div></div>
-    <div class="stat"><div class="num" id="totalAll">—</div><div class="lbl">Total</div></div>
+    <div class="stat"><div class="num" id="statLeft">—</div><div class="lbl">Rămase</div></div>
+    <div class="stat"><div class="num" id="statTotal">—</div><div class="lbl">Total inițial</div></div>
   </div>
 </header>
 
-<button class="reset-btn" onclick="resetAll()">↺ Resetează tot</button>
-
 <div class="groups" id="groups"></div>
+<div class="toast" id="toast"></div>
 
 <script>
-const data = {
+const STORAGE_KEY = "panini_wc26_lipsuri_v2";
+
+const initialData = {
   "A": [
-    { name: "Mexico",       abbrev: "MEX", missing: [1,13,14] },
-    { name: "South Africa", abbrev: "RSA", missing: [2,19] },
-    { name: "South Korea",  abbrev: "KOR", missing: [15] },
-    { name: "Czechia",      abbrev: "CZE", missing: [3,7,12,13,17] },
+    { name:"Mexico",       abbrev:"MEX", missing:[13,14] },
+    { name:"South Africa", abbrev:"RSA", missing:[2] },
+    { name:"South Korea",  abbrev:"KOR", missing:[15] },
+    { name:"Czechia",      abbrev:"CZE", missing:[3,7,13,17] },
   ],
   "B": [
-    { name: "Canada",            abbrev: "CAN", missing: [1,4,8,9,10] },
-    { name: "Bosnia & Herz.",    abbrev: "BIH", missing: [3,9,14,18,20] },
-    { name: "Qatar",             abbrev: "QAT", missing: [2,6,14,18] },
-    { name: "Switzerland",       abbrev: "SUI", missing: [2,4,9,14] },
+    { name:"Canada",          abbrev:"CAN", missing:[8,9,10] },
+    { name:"Bosnia & Herz.",  abbrev:"BIH", missing:[3,9,18,20] },
+    { name:"Qatar",           abbrev:"QAT", missing:[2,6,14,18] },
+    { name:"Switzerland",     abbrev:"SUI", missing:[14] },
   ],
   "C": [
-    { name: "Brazil",   abbrev: "BRA", missing: [4,10,11,14,16,18] },
-    { name: "Morocco",  abbrev: "MAR", missing: [5,6,12,14] },
-    { name: "Haiti",    abbrev: "HAI", missing: [4,8,10,19] },
-    { name: "Scotland", abbrev: "SCO", missing: [5,7,8,11,12,15] },
+    { name:"Brazil",   abbrev:"BRA", missing:[10,11,16] },
+    { name:"Morocco",  abbrev:"MAR", missing:[6,12,14] },
+    { name:"Haiti",    abbrev:"HAI", missing:[4,10,19] },
+    { name:"Scotland", abbrev:"SCO", missing:[5,8,12,15] },
   ],
   "D": [
-    { name: "USA",       abbrev: "USA", missing: [6,8,19] },
-    { name: "Paraguay",  abbrev: "PAR", missing: [5,9,10,16] },
-    { name: "Australia", abbrev: "AUS", missing: [1,17,18,20] },
-    { name: "Turkey",    abbrev: "TUR", missing: [2,4,19] },
+    { name:"USA",       abbrev:"USA", missing:[6,8,19] },
+    { name:"Paraguay",  abbrev:"PAR", missing:[5,9,10] },
+    { name:"Australia", abbrev:"AUS", missing:[1,17,18,20] },
+    { name:"Turkey",    abbrev:"TUR", missing:[2,4,19] },
   ],
   "E": [
-    { name: "Germany",       abbrev: "GER", missing: [5,12,20] },
-    { name: "Curaçao",       abbrev: "CUW", missing: [2,3,5,6,11] },
-    { name: "Côte d'Ivoire", abbrev: "CIV", missing: [3,4,6,8,15] },
-    { name: "Ecuador",       abbrev: "ECU", missing: [2,4,5,11,12,14,15] },
+    { name:"Germany",       abbrev:"GER", missing:[12] },
+    { name:"Curaçao",       abbrev:"CUW", missing:[3,5,6,11] },
+    { name:"Côte d'Ivoire", abbrev:"CIV", missing:[3,4] },
+    { name:"Ecuador",       abbrev:"ECU", missing:[2,5,11,12,15] },
   ],
   "F": [
-    { name: "Netherlands", abbrev: "NED", missing: [3,10,19] },
-    { name: "Japan",       abbrev: "JPN", missing: [8,9] },
-    { name: "Sweden",      abbrev: "SWE", missing: [2,4,10,13] },
-    { name: "Tunisia",     abbrev: "TUN", missing: [5,9,14] },
+    { name:"Netherlands", abbrev:"NED", missing:[3,10] },
+    { name:"Japan",       abbrev:"JPN", missing:[8] },
+    { name:"Sweden",      abbrev:"SWE", missing:[2,4,10] },
+    { name:"Tunisia",     abbrev:"TUN", missing:[5,9,14] },
   ],
   "G": [
-    { name: "Belgium",     abbrev: "BEL", missing: [2,4,13,16,18,19] },
-    { name: "Egypt",       abbrev: "EGY", missing: [7,13,17] },
-    { name: "Iran",        abbrev: "IRN", missing: [10,11,12,13] },
-    { name: "New Zealand", abbrev: "NZL", missing: [1,9,14] },
+    { name:"Belgium",     abbrev:"BEL", missing:[13,16,18,19] },
+    { name:"Egypt",       abbrev:"EGY", missing:[17] },
+    { name:"Iran",        abbrev:"IRN", missing:[10,11,12,13] },
+    { name:"New Zealand", abbrev:"NZL", missing:[9,14] },
   ],
   "H": [
-    { name: "Spain",        abbrev: "ESP", missing: [1,5,14] },
-    { name: "Cape Verde",   abbrev: "CPV", missing: [5,13,15] },
-    { name: "Saudi Arabia", abbrev: "KSA", missing: [1,2] },
-    { name: "Uruguay",      abbrev: "URU", missing: [7,17] },
+    { name:"Spain",        abbrev:"ESP", missing:[1,5,14] },
+    { name:"Cape Verde",   abbrev:"CPV", missing:[5,13] },
+    { name:"Saudi Arabia", abbrev:"KSA", missing:[2] },
+    { name:"Uruguay",      abbrev:"URU", missing:[7,17] },
   ],
   "I": [
-    { name: "France",  abbrev: "FRA", missing: [7,18,20] },
-    { name: "Senegal", abbrev: "SEN", missing: [4,6,14] },
-    { name: "Iraq",    abbrev: "IRQ", missing: [17,19] },
-    { name: "Norway",  abbrev: "NOR", missing: [4,8,18] },
+    { name:"France",  abbrev:"FRA", missing:[7,18,20] },
+    { name:"Senegal", abbrev:"SEN", missing:[4,6] },
+    { name:"Iraq",    abbrev:"IRQ", missing:[17,19] },
+    { name:"Norway",  abbrev:"NOR", missing:[4,18] },
   ],
   "J": [
-    { name: "Argentina", abbrev: "ARG", missing: [7,8,10,14,15,16] },
-    { name: "Algeria",   abbrev: "ALG", missing: [9,11] },
-    { name: "Austria",   abbrev: "AUT", missing: [3,4,8,19] },
-    { name: "Jordan",    abbrev: "JOR", missing: [9,10,11,12,15] },
+    { name:"Argentina", abbrev:"ARG", missing:[7,8,10,14,15,16] },
+    { name:"Algeria",   abbrev:"ALG", missing:[9,11] },
+    { name:"Austria",   abbrev:"AUT", missing:[3,4,8] },
+    { name:"Jordan",    abbrev:"JOR", missing:[9,10,11,12,15] },
   ],
   "K": [
-    { name: "Portugal",   abbrev: "POR", missing: [3,7,15,16] },
-    { name: "DR Congo",   abbrev: "COD", missing: [1,5,18,19] },
-    { name: "Uzbekistan", abbrev: "UZB", missing: [1,15,18,19] },
-    { name: "Colombia",   abbrev: "COL", missing: [1,4,9,13,18] },
+    { name:"Portugal",   abbrev:"POR", missing:[7,16] },
+    { name:"DR Congo",   abbrev:"COD", missing:[5,18,19] },
+    { name:"Uzbekistan", abbrev:"UZB", missing:[1,15,18,19] },
+    { name:"Colombia",   abbrev:"COL", missing:[1,4,9,13,18] },
   ],
   "L": [
-    { name: "England", abbrev: "ENG", missing: [3,6,11,12,13,18] },
-    { name: "Croatia", abbrev: "CRO", missing: [12,16,17] },
-    { name: "Ghana",   abbrev: "GHA", missing: [2,3,4,7,16] },
-    { name: "Panama",  abbrev: "PAN", missing: [12,17,18] },
+    { name:"England", abbrev:"ENG", missing:[3,6,11,18] },
+    { name:"Croatia", abbrev:"CRO", missing:[16,17] },
+    { name:"Ghana",   abbrev:"GHA", missing:[2,3,4,7,16] },
+    { name:"Panama",  abbrev:"PAN", missing:[12,17] },
   ],
   "—": [
-    { name: "FIFA WC History", abbrev: "FWC", missing: [9,12,18] },
+    { name:"FIFA WC History", abbrev:"FWC", missing:[9,12,18] },
   ],
 };
 
-const STORAGE_KEY = "panini_wc26_found";
+const INITIAL_TOTAL = 141;
 
-function loadFound() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
-  catch { return {}; }
-}
-function saveFound(found) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(found));
-}
+// State: per abbrev, array of remaining numbers
+let state = {};
+let holdTimer = null;
 
-function key(abbrev, num) { return `${abbrev}_${num}`; }
-
-function updateStats(found) {
-  let total = 0, done = 0;
-  for (const teams of Object.values(data))
-    for (const t of teams) {
-      total += t.missing.length;
-      done += t.missing.filter(n => found[key(t.abbrev, n)]).length;
-    }
-  document.getElementById("totalAll").textContent = total;
-  document.getElementById("totalFound").textContent = done;
-  document.getElementById("totalLeft").textContent = total - done;
+function loadState() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (saved) { state = saved; return; }
+  } catch {}
+  // defaults
+  for (const teams of Object.values(initialData))
+    for (const t of teams)
+      state[t.abbrev] = [...t.missing];
 }
 
-function updateTeamCount(abbrev, found) {
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function updateStats() {
+  const left = Object.values(state).reduce((s,arr) => s + arr.length, 0);
+  document.getElementById('statLeft').textContent = left;
+  document.getElementById('statTotal').textContent = INITIAL_TOTAL;
+}
+
+function updateTeamCount(abbrev) {
   const el = document.querySelector(`.team-count[data-abbrev="${abbrev}"]`);
-  if (!el) return;
-  const team = Object.values(data).flat().find(t => t.abbrev === abbrev);
-  const left = team.missing.filter(n => !found[key(abbrev, n)]).length;
-  el.textContent = left === 0 ? "✓ complet" : `${left} rămase`;
+  if (el) {
+    const n = (state[abbrev] || []).length;
+    el.textContent = n === 0 ? '✓ complet' : `${n} rămase`;
+  }
+}
+
+function deleteSticker(abbrev, num, el) {
+  el.classList.add('deleting');
+  setTimeout(() => {
+    state[abbrev] = (state[abbrev] || []).filter(n => n !== num);
+    saveState();
+    updateTeamCount(abbrev);
+    updateStats();
+    el.remove();
+    showToast(`${abbrev} ${num} — găsit! 🎉`);
+  }, 200);
+}
+
+function startHold(el, abbrev, num) {
+  el.classList.add('holding');
+  holdTimer = setTimeout(() => {
+    el.classList.remove('holding');
+    deleteSticker(abbrev, num, el);
+  }, 700);
+}
+
+function cancelHold() {
+  clearTimeout(holdTimer);
+  document.querySelectorAll('.sticker.holding').forEach(e => e.classList.remove('holding'));
 }
 
 function render() {
-  const found = loadFound();
-  const container = document.getElementById("groups");
-  container.innerHTML = "";
+  const container = document.getElementById('groups');
+  container.innerHTML = '';
 
-  for (const [grp, teams] of Object.entries(data)) {
-    const block = document.createElement("div");
-    block.className = "group-block";
+  for (const [grp, teams] of Object.entries(initialData)) {
+    const block = document.createElement('div');
+    block.className = 'group-block';
     block.innerHTML = `<div class="group-header"><span>Grupa ${grp}</span></div>`;
 
     for (const team of teams) {
-      if (team.missing.length === 0) {
-        block.innerHTML += `<div class="empty-row">${team.name} — nicio lipsă</div>`;
+      const nums = state[team.abbrev] || [];
+      if (nums.length === 0) {
+        const row = document.createElement('div');
+        row.className = 'empty-row';
+        row.innerHTML = `<span class="team-name" style="font-weight:600;color:#e6edf3">${team.name}</span> — ✓ complet`;
+        block.appendChild(row);
         continue;
       }
-      const left = team.missing.filter(n => !found[key(team.abbrev, n)]).length;
-      const row = document.createElement("div");
-      row.className = "team-row";
+
+      const row = document.createElement('div');
+      row.className = 'team-row';
       row.innerHTML = `
         <div class="team-info">
           <div class="team-name">${team.name}</div>
           <div class="team-abbrev">${team.abbrev}</div>
-          <div class="team-count" data-abbrev="${team.abbrev}">${left === 0 ? "✓ complet" : left + " rămase"}</div>
+          <div class="team-count" data-abbrev="${team.abbrev}">${nums.length} rămase</div>
         </div>
         <div class="stickers" id="s_${team.abbrev}"></div>`;
       block.appendChild(row);
 
-      const stickersDiv = row.querySelector(`#s_${team.abbrev}`);
-      for (const num of team.missing) {
-        const btn = document.createElement("div");
-        btn.className = "sticker" + (found[key(team.abbrev, num)] ? " done" : "");
-        btn.textContent = num;
-        btn.title = found[key(team.abbrev, num)] ? "Click pentru a anula" : "Click când l-ai găsit";
-        btn.addEventListener("click", () => {
-          const f = loadFound();
-          const k = key(team.abbrev, num);
-          if (f[k]) delete f[k]; else f[k] = 1;
-          saveFound(f);
-          btn.classList.toggle("done", !!f[k]);
-          btn.title = f[k] ? "Click pentru a anula" : "Click când l-ai găsit";
-          updateTeamCount(team.abbrev, f);
-          updateStats(f);
-        });
-        stickersDiv.appendChild(btn);
+      const wrap = row.querySelector(`#s_${team.abbrev}`);
+      for (const num of nums) {
+        const el = document.createElement('div');
+        el.className = 'sticker';
+        el.textContent = num;
+        el.title = 'Ține apăsat ca să ștergi';
+        el.addEventListener('pointerdown', () => startHold(el, team.abbrev, num));
+        el.addEventListener('pointerup',    cancelHold);
+        el.addEventListener('pointerleave', cancelHold);
+        el.addEventListener('contextmenu',  e => { e.preventDefault(); deleteSticker(team.abbrev, num, el); });
+        wrap.appendChild(el);
       }
     }
     container.appendChild(block);
   }
-  updateStats(found);
+  updateStats();
 }
 
-function resetAll() {
-  if (confirm("Resetezi tot progresul?")) {
-    localStorage.removeItem(STORAGE_KEY);
-    render();
-  }
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
 }
 
+loadState();
 render();
 </script>
 </body>
