@@ -339,7 +339,7 @@ function render() {
   container.innerHTML = '';
   updateStats();
 
-  for (const [grp, teams] of Object.entries(initialData)) {
+  for (const [grp, teams] of Object.entries(groups)) {
     const block = document.createElement('div');
     block.className = 'group-block';
     block.innerHTML = `<div class="group-header"><span>Grupa ${grp}</span></div>`;
